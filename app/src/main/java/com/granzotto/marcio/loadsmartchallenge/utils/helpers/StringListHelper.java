@@ -1,4 +1,4 @@
-package com.granzotto.marcio.loadsmartchallenge.utils;
+package com.granzotto.marcio.loadsmartchallenge.utils.helpers;
 
 import java.util.List;
 
