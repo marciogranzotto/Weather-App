@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">LoadSmart Challenge</string>
+    <string name="scrollAwareFABBahaviorClass">com.granzotto.marcio.loadsmartchallenge.utils.behaviors.ScrollAwareFABBehavior</string>
 </resources>
