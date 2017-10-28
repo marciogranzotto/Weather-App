@@ -3,13 +3,16 @@ package com.granzotto.marcio.loadsmartchallenge.utils;
 
 import android.util.Log;
 
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.granzotto.marcio.loadsmartchallenge.BuildConfig;
 import com.granzotto.marcio.loadsmartchallenge.models.WeatherUnit;
 
+import java.util.HashMap;
+import java.util.List;
+
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
@@ -30,18 +33,28 @@ public class WeatherApiDataManager {
 
 	//MARK: Public methods
 
-	public Observable<Double> fetchWeather(String cityName) {
+	public Observable<Long> fetchCityId(String cityName) {
 		return getRetrofit().create(WeatherAPI.class)
-				.fetchWeather(cityName, weatherUnit.toString(), BuildConfig.OpenWheatherApiKey)
+				.fetchWeatherForCityName(cityName, weatherUnit.toString(), BuildConfig.OpenWheatherApiKey)
 				.subscribeOn(Schedulers.io())
 				.observeOn(AndroidSchedulers.mainThread())
-				.map(new Function<JsonObject, Double>() {
-					@Override
-					public Double apply(JsonObject jsonObject) throws Exception {
-						return jsonObject.getAsJsonObject("main").get("temp").getAsDouble();
-					}
-				});
+				.map(jsonObject -> jsonObject.get("id").getAsLong());
 
+	}
+
+	public Observable<HashMap<String, Double>> fetchCurrentWeather(List<String> cityIds) {
+		return getRetrofit().create(WeatherAPI.class)
+				.fetchWeatherBatch(StringListHelper.toCommaSeparatedString(cityIds), weatherUnit.toString(), BuildConfig.OpenWheatherApiKey)
+				.subscribeOn(Schedulers.io())
+				.observeOn(AndroidSchedulers.mainThread())
+				.map(jsonObject -> {
+					HashMap<String, Double> map = new HashMap<>();
+					for (JsonElement element : jsonObject.getAsJsonArray("list")) {
+						JsonObject obj = element.getAsJsonObject();
+						map.put(obj.get("id").getAsString(), obj.getAsJsonObject("main").get("temp").getAsDouble());
+					}
+					return map;
+				});
 	}
 
 	//MARK: Private methods
@@ -57,12 +70,7 @@ public class WeatherApiDataManager {
 	private Retrofit buildRetrofit() {
 		OkHttpClient.Builder clientBuilder = new OkHttpClient.Builder();
 		if (BuildConfig.DEBUG) {
-			HttpLoggingInterceptor httpLoggingInterceptor = new HttpLoggingInterceptor(new HttpLoggingInterceptor.Logger() {
-				@Override
-				public void log(String message) {
-					Log.d("HttpLoggingInterceptor", message);
-				}
-			});
+			HttpLoggingInterceptor httpLoggingInterceptor = new HttpLoggingInterceptor(message -> Log.d("HttpLoggingInterceptor", message));
 			httpLoggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
 			clientBuilder.addNetworkInterceptor(httpLoggingInterceptor);
 		}

@@ -10,8 +10,15 @@ import retrofit2.http.Query;
 public interface WeatherAPI {
 
 	@GET("weather/")
-	Observable<JsonObject> fetchWeather(
+	Observable<JsonObject> fetchWeatherForCityName(
 			@Query("q") String cityName,
+			@Query("units") String unit,
+			@Query("APPID") String ApiKey
+	);
+
+	@GET("group")
+	Observable<JsonObject> fetchWeatherBatch(
+			@Query("id") String ids,
 			@Query("units") String unit,
 			@Query("APPID") String ApiKey
 	);

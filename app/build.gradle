@@ -23,6 +23,10 @@ android {
             it.buildConfigField('String', 'OpenWheatherApiKey', '"01044a17d13002266a3bf38638fd8162"')
         }
     }
+    compileOptions {
+        targetCompatibility 1.8
+        sourceCompatibility 1.8
+    }
 }
 
 ext {

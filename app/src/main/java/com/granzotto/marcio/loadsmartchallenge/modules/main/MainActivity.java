@@ -3,16 +3,16 @@ package com.granzotto.marcio.loadsmartchallenge.modules.main;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.widget.TextView;
 
 import com.granzotto.marcio.loadsmartchallenge.R;
 import com.granzotto.marcio.loadsmartchallenge.models.WeatherUnit;
 import com.granzotto.marcio.loadsmartchallenge.utils.WeatherApiDataManager;
 
+import java.util.Arrays;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import io.reactivex.functions.Consumer;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -30,19 +30,15 @@ public class MainActivity extends AppCompatActivity {
 	protected void onResume() {
 		super.onResume();
 
+		//TODO: remove mock data
 		new WeatherApiDataManager(WeatherUnit.FAHRENHEIT)
-				.fetchWeather("London")
-				.subscribe(new Consumer<Double>() {
-					@Override
-					public void accept(Double temperature) throws Exception {
-						textView.setText("Temp: " + temperature);
+				.fetchCurrentWeather(Arrays.asList("524901", "703448", "2643743"))
+				.subscribe(response -> {
+					StringBuilder text = new StringBuilder();
+					for (String key : response.keySet()) {
+						text.append(key).append("\t").append(response.get(key)).append("\n");
 					}
-				}, new Consumer<Throwable>() {
-					@Override
-					public void accept(Throwable throwable) throws Exception {
-						Log.e("Error", "Error getting weather", throwable);
-						textView.setText("Error!! Check log");
-					}
+					textView.setText(text.toString());
 				});
 	}
 }
