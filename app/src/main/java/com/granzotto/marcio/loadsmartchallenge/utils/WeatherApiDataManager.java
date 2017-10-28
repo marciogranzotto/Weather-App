@@ -9,7 +9,6 @@ import com.granzotto.marcio.loadsmartchallenge.models.WeatherUnit;
 
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.functions.Consumer;
 import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
 import okhttp3.OkHttpClient;
@@ -36,14 +35,6 @@ public class WeatherApiDataManager {
 				.fetchWeather(cityName, weatherUnit.toString(), BuildConfig.OpenWheatherApiKey)
 				.subscribeOn(Schedulers.io())
 				.observeOn(AndroidSchedulers.mainThread())
-				.doOnNext(new Consumer<JsonObject>() {
-					@Override
-					public void accept(JsonObject jsonObject) throws Exception {
-						if (BuildConfig.DEBUG) {
-							Log.d(TAG, jsonObject.toString());
-						}
-					}
-				})
 				.map(new Function<JsonObject, Double>() {
 					@Override
 					public Double apply(JsonObject jsonObject) throws Exception {
