@@ -1,4 +1,4 @@
-package com.granzotto.marcio.loadsmartchallenge.utils;
+package com.granzotto.marcio.loadsmartchallenge.utils.api;
 
 
 import com.google.gson.JsonObject;

@@ -2,7 +2,7 @@ package com.granzotto.marcio.loadsmartchallenge.modules.add_city;
 
 import com.granzotto.marcio.loadsmartchallenge.models.City;
 import com.granzotto.marcio.loadsmartchallenge.models.WeatherUnit;
-import com.granzotto.marcio.loadsmartchallenge.utils.WeatherApiDataManager;
+import com.granzotto.marcio.loadsmartchallenge.utils.datamanagers.WeatherApiDataManager;
 
 import java.lang.ref.WeakReference;
 

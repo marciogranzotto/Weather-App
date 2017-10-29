@@ -1,4 +1,4 @@
-package com.granzotto.marcio.loadsmartchallenge.utils;
+package com.granzotto.marcio.loadsmartchallenge.utils.datamanagers;
 
 
 import android.util.Log;
@@ -7,6 +7,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.granzotto.marcio.loadsmartchallenge.BuildConfig;
 import com.granzotto.marcio.loadsmartchallenge.models.WeatherUnit;
+import com.granzotto.marcio.loadsmartchallenge.utils.api.WeatherAPI;
 import com.granzotto.marcio.loadsmartchallenge.utils.helpers.StringListHelper;
 
 import java.util.HashMap;
