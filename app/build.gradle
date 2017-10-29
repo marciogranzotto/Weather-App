@@ -22,6 +22,7 @@ android {
         }
         buildTypes.each {
             it.buildConfigField('String', 'OpenWheatherApiKey', '"01044a17d13002266a3bf38638fd8162"')
+            it.buildConfigField('String', 'FlickrApiKey', '"8d3be0fd6c972c06c10f0ee78d1cb9fb"')
         }
     }
     compileOptions {
