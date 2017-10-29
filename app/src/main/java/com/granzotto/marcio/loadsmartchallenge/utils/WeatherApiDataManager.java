@@ -32,7 +32,7 @@ public class WeatherApiDataManager {
 		this.weatherUnit = weatherUnit;
 	}
 
-	//MARK: Public methods
+	//region: Public methods
 
 	public Observable<Long> fetchCityId(String cityName) {
 		return getRetrofit().create(WeatherAPI.class)
@@ -58,7 +58,9 @@ public class WeatherApiDataManager {
 				});
 	}
 
-	//MARK: Private methods
+	//endregion
+
+	//region: Private methods
 
 
 	private Retrofit getRetrofit() {
@@ -84,4 +86,5 @@ public class WeatherApiDataManager {
 				.build();
 	}
 
+	//endregion
 }
