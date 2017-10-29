@@ -1,13 +1,14 @@
 package com.granzotto.marcio.loadsmartchallenge.modules.main;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 
 import com.granzotto.marcio.loadsmartchallenge.R;
 import com.granzotto.marcio.loadsmartchallenge.models.City;
+import com.granzotto.marcio.loadsmartchallenge.modules.add_city.AddCityActivity;
 import com.granzotto.marcio.loadsmartchallenge.modules.base.BaseActivity;
 import com.granzotto.marcio.loadsmartchallenge.utils.adapters.CityAdapter;
 
@@ -67,7 +68,8 @@ public class MainActivity extends BaseActivity implements MainContracts.View {
 	@OnClick(R.id.addButton)
 	protected void onAddButtonClicked() {
 		//TODO
-		Log.d("FAB", "The add button was clicked!!");
+		Intent intent = new Intent(this, AddCityActivity.class);
+		startActivity(intent);
 	}
 
 	//endregion
