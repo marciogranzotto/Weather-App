@@ -22,4 +22,13 @@ public class AddCityActivity extends BaseActivity implements AddCityContracts.Vi
 		supportActionBar.setDisplayHomeAsUpEnabled(true);
 		supportActionBar.setDisplayShowHomeEnabled(true);
 	}
+
+	//region View Contract
+
+	@Override
+	public void closeScreen() {
+		this.finish();
+	}
+
+	//endregion
 }

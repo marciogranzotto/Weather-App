@@ -34,12 +34,12 @@ public class WeatherApiDataManager {
 
 	//region: Public methods
 
-	public Observable<Long> fetchCityId(String cityName) {
+	public Observable<String> fetchCityId(String cityName) {
 		return getRetrofit().create(WeatherAPI.class)
 				.fetchWeatherForCityName(cityName, weatherUnit.toString(), BuildConfig.OpenWheatherApiKey)
 				.subscribeOn(Schedulers.io())
 				.observeOn(AndroidSchedulers.mainThread())
-				.map(jsonObject -> jsonObject.get("id").getAsLong());
+				.map(jsonObject -> jsonObject.get("id").getAsString());
 
 	}
 

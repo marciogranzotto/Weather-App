@@ -7,6 +7,11 @@ public class City {
 	private String stateName;
 	private String imageUrl;
 
+	public City(String name, String stateName) {
+		this.name = name;
+		this.stateName = stateName;
+	}
+
 	public String getId() {
 		return id;
 	}

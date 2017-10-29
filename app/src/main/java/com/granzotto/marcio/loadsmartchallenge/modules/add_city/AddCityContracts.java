@@ -5,10 +5,10 @@ import com.granzotto.marcio.loadsmartchallenge.modules.base.BaseContracts;
 public interface AddCityContracts {
 
 	interface View extends BaseContracts.View {
-		//TODO
+		void closeScreen();
 	}
 
 	interface Presenter extends BaseContracts.Presenter {
-		//TODO
+		void onSaveButtonClicked(String cityName, String state);
 	}
 }
