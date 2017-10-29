@@ -2,6 +2,7 @@ package com.granzotto.marcio.loadsmartchallenge.modules.add_city;
 
 import com.granzotto.marcio.loadsmartchallenge.models.City;
 import com.granzotto.marcio.loadsmartchallenge.models.WeatherUnit;
+import com.granzotto.marcio.loadsmartchallenge.utils.datamanagers.FlickrApiDataManager;
 import com.granzotto.marcio.loadsmartchallenge.utils.datamanagers.WeatherApiDataManager;
 
 import java.lang.ref.WeakReference;
@@ -49,7 +50,17 @@ public class AddCityPresenter implements AddCityContracts.Presenter {
 		AddCityContracts.View weakView = view.get();
 		if (weakView == null) return;
 		city.setId(id);
-		//TODO get the image
+		FlickrApiDataManager.getInstance().fetchImageUrl(city.getName())
+				.subscribe(
+						this::onCityImageFetched,
+						error -> weakView.showErrorDialog(error.getMessage())
+				);
+	}
+
+	private void onCityImageFetched(String imgUrl) {
+		AddCityContracts.View weakView = view.get();
+		if (weakView == null) return;
+		city.setImageUrl(imgUrl);
 		//TODO save city to database
 		weakView.hideLoadingDialog();
 		weakView.closeScreen();
