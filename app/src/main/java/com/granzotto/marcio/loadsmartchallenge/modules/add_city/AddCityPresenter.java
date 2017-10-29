@@ -1,7 +1,10 @@
 package com.granzotto.marcio.loadsmartchallenge.modules.add_city;
 
+import android.util.Log;
+
 import com.granzotto.marcio.loadsmartchallenge.models.City;
 import com.granzotto.marcio.loadsmartchallenge.models.WeatherUnit;
+import com.granzotto.marcio.loadsmartchallenge.utils.datamanagers.CityDBDataManager;
 import com.granzotto.marcio.loadsmartchallenge.utils.datamanagers.FlickrApiDataManager;
 import com.granzotto.marcio.loadsmartchallenge.utils.datamanagers.WeatherApiDataManager;
 
@@ -11,6 +14,7 @@ public class AddCityPresenter implements AddCityContracts.Presenter {
 
 	private WeakReference<AddCityContracts.View> view;
 	private WeatherApiDataManager weatherApi = new WeatherApiDataManager(WeatherUnit.FAHRENHEIT);
+	private CityDBDataManager dbDataManager = new CityDBDataManager();
 	private City city;
 
 	public AddCityPresenter(AddCityContracts.View view) {
@@ -61,9 +65,19 @@ public class AddCityPresenter implements AddCityContracts.Presenter {
 		AddCityContracts.View weakView = view.get();
 		if (weakView == null) return;
 		city.setImageUrl(imgUrl);
-		//TODO save city to database
-		weakView.hideLoadingDialog();
-		weakView.closeScreen();
+		dbDataManager.saveCity(city, new CityDBDataManager.SaveListener() {
+			@Override
+			public void onSuccess() {
+				weakView.hideLoadingDialog();
+				weakView.closeScreen();
+			}
+
+			@Override
+			public void onError(Throwable throwable) {
+				Log.e("SAVE_CITY", "error", throwable);
+				weakView.showErrorDialog(throwable.getMessage());
+			}
+		});
 	}
 
 	//endregion
