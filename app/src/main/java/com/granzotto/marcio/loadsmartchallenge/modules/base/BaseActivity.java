@@ -4,6 +4,7 @@ import android.app.Dialog;
 import android.content.Context;
 import android.support.v7.app.AppCompatActivity;
 
+import com.granzotto.marcio.loadsmartchallenge.utils.dialogs.ErrorDialog;
 import com.granzotto.marcio.loadsmartchallenge.utils.dialogs.LoadingDialog;
 
 public class BaseActivity extends AppCompatActivity implements BaseContracts.View {
@@ -28,6 +29,6 @@ public class BaseActivity extends AppCompatActivity implements BaseContracts.Vie
 
 	@Override
 	public void showErrorDialog(String message) {
-		//TODO
+		dialog = ErrorDialog.show(message, this);
 	}
 }

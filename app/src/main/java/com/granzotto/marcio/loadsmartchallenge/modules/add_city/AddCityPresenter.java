@@ -17,7 +17,7 @@ public class AddCityPresenter implements AddCityContracts.Presenter {
 	private CityDBDataManager dbDataManager = new CityDBDataManager();
 	private City city;
 
-	public AddCityPresenter(AddCityContracts.View view) {
+	AddCityPresenter(AddCityContracts.View view) {
 		this.view = new WeakReference<>(view);
 	}
 
