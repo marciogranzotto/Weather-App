@@ -38,7 +38,7 @@ public class CityAdapter extends RecyclerView.Adapter<CityAdapter.CityViewHolder
 
 	@Override
 	public int getItemCount() {
-		return 0;
+		return cities.size();
 	}
 
 	public void setCities(List<City> cities) {
@@ -64,7 +64,7 @@ public class CityAdapter extends RecyclerView.Adapter<CityAdapter.CityViewHolder
 
 		CityViewHolder(View itemView) {
 			super(itemView);
-			ButterKnife.bind(itemView);
+			ButterKnife.bind(this, itemView);
 			context = itemView.getContext();
 		}
 
