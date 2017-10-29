@@ -1,11 +1,16 @@
 package com.granzotto.marcio.loadsmartchallenge.models;
 
-public class City {
+import io.realm.RealmObject;
+
+public class City extends RealmObject {
 
 	private String id;
 	private String name;
 	private String stateName;
 	private String imageUrl;
+
+	public City() {
+	}
 
 	public City(String name, String stateName) {
 		this.name = name;
