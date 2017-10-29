@@ -3,6 +3,7 @@ package com.granzotto.marcio.loadsmartchallenge.modules.main;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
@@ -23,6 +24,9 @@ public class MainActivity extends BaseActivity implements MainContracts.View {
 
 	@BindView(R.id.recyclerView)
 	RecyclerView recyclerView;
+
+	@BindView(R.id.addButton)
+	FloatingActionButton addButton;
 
 	private MainContracts.Presenter presenter = new MainPresenter(this);
 	private CityAdapter adapter;
@@ -80,6 +84,16 @@ public class MainActivity extends BaseActivity implements MainContracts.View {
 		recyclerView.setLayoutManager(new LinearLayoutManager(this));
 		adapter = new CityAdapter();
 		recyclerView.setAdapter(adapter);
+
+		recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+			@Override
+			public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+				if (dy > 0)
+					addButton.hide();
+				else if (dy < 0)
+					addButton.show();
+			}
+		});
 	}
 
 	//endregion

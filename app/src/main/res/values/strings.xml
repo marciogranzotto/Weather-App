@@ -1,6 +1,5 @@
 <resources>
     <string name="app_name">LoadSmart Challenge</string>
-    <string name="scrollAwareFABBahaviorClass">com.granzotto.marcio.loadsmartchallenge.utils.behaviors.ScrollAwareFABBehavior</string>
     <string name="temperature_value">%1$d°</string>
     <string name="city_name">City name</string>
     <string name="state">State</string>

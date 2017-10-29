@@ -19,8 +19,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
         android:layout_margin="@dimen/margin_normal"
-        android:src="@drawable/ic_add"
         app:fabSize="normal"
-        app:layout_behavior="@string/scrollAwareFABBahaviorClass"/>
+        app:srcCompat="@drawable/ic_add"/>
 
 </android.support.design.widget.CoordinatorLayout>
