@@ -5,6 +5,7 @@ public class City {
 	private String id;
 	private String name;
 	private String stateName;
+	private String imageUrl;
 
 	public String getId() {
 		return id;
@@ -28,5 +29,13 @@ public class City {
 
 	public void setStateName(String stateName) {
 		this.stateName = stateName;
+	}
+
+	public String getImageUrl() {
+		return imageUrl;
+	}
+
+	public void setImageUrl(String imageUrl) {
+		this.imageUrl = imageUrl;
 	}
 }
