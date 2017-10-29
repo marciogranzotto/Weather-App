@@ -17,7 +17,8 @@ public class LoadSmartApplication extends Application {
 	private void setupRealm() {
 		Realm.init(this);
 		RealmConfiguration config = new RealmConfiguration.Builder()
-				.schemaVersion(0)
+				.schemaVersion(2)
+				.deleteRealmIfMigrationNeeded()
 				.build();
 		Realm.setDefaultConfiguration(config);
 	}

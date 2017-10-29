@@ -1,0 +1,62 @@
+[
+  {
+    "id": "5128638",
+    "name": "New York",
+    "stateName": "NY",
+    "imageUrl": "https://farm3.staticflickr.com/2488/4117096934_a53ba1bc52.jpg"
+  },
+  {
+    "id": "5368361",
+    "name": "Los Angeles",
+    "stateName": "CA",
+    "imageUrl": "https://farm3.staticflickr.com/2330/1686325496_eb49494f52.jpg"
+  },
+  {
+    "id": "4887398",
+    "name": "Chicago",
+    "stateName": "IL",
+    "imageUrl": "https://farm5.staticflickr.com/4249/34734717322_fa08a8a7e4.jpg"
+  },
+  {
+    "id": "4391354",
+    "name": "Houston",
+    "stateName": "TX",
+    "imageUrl": "https://farm6.staticflickr.com/5503/10823155025_c67764fd5d.jpg"
+  },
+  {
+    "id": "4905873",
+    "name": "Phoenix",
+    "stateName": "AZ",
+    "imageUrl": "https://farm5.staticflickr.com/4371/36435556613_ee9be08c44.jpg"
+  },
+  {
+    "id": "4560349",
+    "name": "Philadelphia",
+    "stateName": "PA",
+    "imageUrl": "https://farm3.staticflickr.com/2879/10982811205_c0cd2d7536.jpg"
+  },
+  {
+    "id": "4726206",
+    "name": "San Antonio",
+    "stateName": "TX",
+    "imageUrl": "https://farm4.staticflickr.com/3938/15100887924_eb9442359d.jpg"
+  },
+  {
+    "id": "5391811",
+    "name": "San Diego",
+    "stateName": "CA",
+    "imageUrl": "https://farm9.staticflickr.com/8512/8530667268_65d527de8d.jpg"
+  },
+  {
+    "id": "4190598",
+    "name": "Dallas",
+    "stateName": "TX",
+    "imageUrl": "https://farm8.staticflickr.com/7540/15336742763_a53454b6c2.jpg"
+  },
+  {
+    "id": "5392171",
+    "name": "San Jose",
+    "stateName": "CA",
+    "imageUrl": "https://farm7.staticflickr.com/6116/6349423000_917afd0d0f.jpg"
+  }
+]

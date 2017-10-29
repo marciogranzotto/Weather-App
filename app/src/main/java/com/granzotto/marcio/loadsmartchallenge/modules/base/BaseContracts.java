@@ -1,8 +1,12 @@
 package com.granzotto.marcio.loadsmartchallenge.modules.base;
 
+import android.content.Context;
+
 public interface BaseContracts {
 
 	interface View {
+		Context getActivityContext();
+
 		void showLoadingDialog();
 
 		void hideLoadingDialog();

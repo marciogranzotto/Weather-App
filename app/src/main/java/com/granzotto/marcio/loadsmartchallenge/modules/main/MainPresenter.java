@@ -26,7 +26,9 @@ public class MainPresenter implements MainContracts.Presenter {
 
 	@Override
 	public void onCreate() {
-		//TODO: create database if there's no cities
+		MainContracts.View weakView = view.get();
+		if (weakView == null) return;
+		dbDataManager.createCitiesIfNone(weakView.getActivityContext());
 	}
 
 	@Override
