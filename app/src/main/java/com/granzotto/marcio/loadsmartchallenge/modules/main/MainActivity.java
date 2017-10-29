@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
@@ -12,6 +13,7 @@ import com.granzotto.marcio.loadsmartchallenge.models.City;
 import com.granzotto.marcio.loadsmartchallenge.modules.add_city.AddCityActivity;
 import com.granzotto.marcio.loadsmartchallenge.modules.base.BaseActivity;
 import com.granzotto.marcio.loadsmartchallenge.utils.adapters.CityAdapter;
+import com.granzotto.marcio.loadsmartchallenge.utils.custom_views.CustomSwipeRefreshLayout;
 
 import java.util.HashMap;
 import java.util.List;
@@ -27,6 +29,9 @@ public class MainActivity extends BaseActivity implements MainContracts.View {
 
 	@BindView(R.id.addButton)
 	FloatingActionButton addButton;
+
+	@BindView(R.id.swipeRefreshLayout)
+	CustomSwipeRefreshLayout swipeRefreshLayout;
 
 	private MainContracts.Presenter presenter = new MainPresenter(this);
 	private CityAdapter adapter;
@@ -52,6 +57,16 @@ public class MainActivity extends BaseActivity implements MainContracts.View {
 	protected void onDestroy() {
 		super.onDestroy();
 		presenter.onDestroy();
+	}
+
+	@Override
+	public void showLoadingDialog() {
+		swipeRefreshLayout.setRefreshing(true);
+	}
+
+	@Override
+	public void hideLoadingDialog() {
+		swipeRefreshLayout.setRefreshing(false);
 	}
 
 	//endregion
@@ -93,6 +108,10 @@ public class MainActivity extends BaseActivity implements MainContracts.View {
 				else if (dy < 0)
 					addButton.show();
 			}
+		});
+
+		swipeRefreshLayout.setOnRefreshListener(() -> {
+			presenter.onSwipeToRefreshTriggered();
 		});
 	}
 

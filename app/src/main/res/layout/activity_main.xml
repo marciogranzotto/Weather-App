@@ -7,11 +7,18 @@
     android:layout_height="match_parent"
     tools:context="com.granzotto.marcio.loadsmartchallenge.modules.main.MainActivity">
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/recyclerView"
+    <com.granzotto.marcio.loadsmartchallenge.utils.custom_views.CustomSwipeRefreshLayout
+        android:id="@+id/swipeRefreshLayout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:listitem="@layout/city_cell"/>
+        android:layout_height="match_parent">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:listitem="@layout/city_cell"/>
+
+    </com.granzotto.marcio.loadsmartchallenge.utils.custom_views.CustomSwipeRefreshLayout>
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/addButton"

@@ -41,6 +41,11 @@ public class MainPresenter implements MainContracts.Presenter {
 		this.view.clear();
 	}
 
+	@Override
+	public void onSwipeToRefreshTriggered() {
+		fetchTemperatures();
+	}
+
 	//endregion
 
 	private void fetchCities() {

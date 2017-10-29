@@ -13,6 +13,7 @@ public interface MainContracts {
 	}
 
 	interface Presenter extends BaseContracts.Presenter {
+		void onSwipeToRefreshTriggered();
 	}
 
 }
