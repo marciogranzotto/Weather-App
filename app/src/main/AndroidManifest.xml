@@ -21,7 +21,8 @@
         </activity>
         <activity
             android:name=".modules.add_city.AddCityActivity"
-            android:parentActivityName=".modules.main.MainActivity">
+            android:parentActivityName=".modules.main.MainActivity"
+            android:windowSoftInputMode="adjustResize">
         </activity>
     </application>
 

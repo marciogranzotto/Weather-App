@@ -54,7 +54,7 @@ public class AddCityPresenter implements AddCityContracts.Presenter {
 		AddCityContracts.View weakView = view.get();
 		if (weakView == null) return;
 		city.setId(id);
-		FlickrApiDataManager.getInstance().fetchImageUrl(city.getName())
+		FlickrApiDataManager.getInstance().fetchImageUrl(city.getName() + ", " + city.getStateName())
 				.subscribe(
 						this::onCityImageFetched,
 						error -> weakView.showErrorDialog(error.getMessage())
