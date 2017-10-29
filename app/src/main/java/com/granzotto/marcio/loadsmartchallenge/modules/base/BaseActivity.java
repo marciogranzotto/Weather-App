@@ -1,7 +1,10 @@
 package com.granzotto.marcio.loadsmartchallenge.modules.base;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.support.v7.app.AppCompatActivity;
+
+import com.granzotto.marcio.loadsmartchallenge.utils.dialogs.LoadingDialog;
 
 public class BaseActivity extends AppCompatActivity implements BaseContracts.View {
 
@@ -14,12 +17,13 @@ public class BaseActivity extends AppCompatActivity implements BaseContracts.Vie
 
 	@Override
 	public void showLoadingDialog() {
-		//TODO
+		dialog = LoadingDialog.show(this);
 	}
 
 	@Override
 	public void hideLoadingDialog() {
-		//TODO
+		if (dialog == null) return;
+		dialog.dismiss();
 	}
 
 	@Override
