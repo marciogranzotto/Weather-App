@@ -1,7 +1,6 @@
 package com.granzotto.marcio.loadsmartchallenge.modules.main;
 
 import com.granzotto.marcio.loadsmartchallenge.models.City;
-import com.granzotto.marcio.loadsmartchallenge.models.WeatherUnit;
 import com.granzotto.marcio.loadsmartchallenge.utils.datamanagers.CityDBDataManager;
 import com.granzotto.marcio.loadsmartchallenge.utils.datamanagers.WeatherApiDataManager;
 
@@ -12,14 +11,17 @@ import java.util.List;
 
 public class MainPresenter implements MainContracts.Presenter {
 
-	private final WeakReference<MainContracts.View> view;
-	private CityDBDataManager dbDataManager = new CityDBDataManager();
-	private WeatherApiDataManager weatherDataManager = new WeatherApiDataManager(WeatherUnit.FAHRENHEIT);
-	private List<City> cities;
-	private HashMap<String, Double> weatherMap;
+	private WeakReference<MainContracts.View> view;
 
-	MainPresenter(MainContracts.View view) {
+	private CityDBDataManager dbDataManager;
+	private WeatherApiDataManager weatherDataManager;
+	private List<City> cities = new ArrayList<>();
+	private HashMap<String, Double> weatherMap = new HashMap<>();
+
+	public MainPresenter(MainContracts.View view, CityDBDataManager dbDataManager, WeatherApiDataManager weatherDataManager) {
 		this.view = new WeakReference<>(view);
+		this.dbDataManager = dbDataManager;
+		this.weatherDataManager = weatherDataManager;
 	}
 
 	//region Presenter Contract
@@ -48,46 +50,72 @@ public class MainPresenter implements MainContracts.Presenter {
 
 	//endregion
 
+	//region Getters and Setters
+
+	public void setCities(List<City> cities) {
+		this.cities = cities;
+	}
+
+	public void setWeatherMap(HashMap<String, Double> weatherMap) {
+		this.weatherMap = weatherMap;
+	}
+
+	public List<City> getCities() {
+		return cities;
+	}
+
+	public HashMap<String, Double> getWeatherMap() {
+		return weatherMap;
+	}
+
+	//endregion
+
+	//region Private
+
 	private void fetchCities() {
 		MainContracts.View weakView = view.get();
-		if (weakView == null) return;
-		weakView.showLoadingDialog();
+		if (weakView != null) weakView.showLoadingDialog();
 		dbDataManager.fetchCities()
 				.subscribe(
 						this::onCitiesFetched,
-						error -> weakView.showErrorDialog(error.getMessage())
+						error -> {
+							if (weakView != null) weakView.showErrorDialog(error.getMessage());
+						}
 				);
 	}
 
 	private void fetchTemperatures() {
 		MainContracts.View weakView = view.get();
-		if (weakView == null) return;
 
 		//unfortunately we don't have a .map method in Java as we do in Kotlin, so...
 		ArrayList<String> ids = new ArrayList<>();
-		for (City city : cities) {
+		for (City city : getCities()) {
 			ids.add(city.getId());
 		}
 
 		weatherDataManager.fetchCurrentWeather(ids)
 				.subscribe(
 						this::onWeatherUpdated,
-						error -> weakView.showErrorDialog(error.getMessage())
+						error -> {
+							if (weakView != null) weakView.showErrorDialog(error.getMessage());
+						}
 				);
 	}
 
 	private void onWeatherUpdated(HashMap<String, Double> weatherMap) {
+		setWeatherMap(weatherMap);
+
 		MainContracts.View weakView = view.get();
 		if (weakView == null) return;
 
-		this.weatherMap = weatherMap;
 		weakView.hideLoadingDialog();
-		weakView.showCities(cities, this.weatherMap);
+		weakView.showCities(getCities(), getWeatherMap());
 	}
 
 	private void onCitiesFetched(List<City> cities) {
-		this.cities = cities;
+		setCities(cities);
 		fetchTemperatures();
 	}
 
+	//endregion
 }

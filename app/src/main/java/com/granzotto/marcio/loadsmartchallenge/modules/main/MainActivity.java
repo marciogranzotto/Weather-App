@@ -4,16 +4,18 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
-import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
 import com.granzotto.marcio.loadsmartchallenge.R;
 import com.granzotto.marcio.loadsmartchallenge.models.City;
+import com.granzotto.marcio.loadsmartchallenge.models.WeatherUnit;
 import com.granzotto.marcio.loadsmartchallenge.modules.add_city.AddCityActivity;
 import com.granzotto.marcio.loadsmartchallenge.modules.base.BaseActivity;
 import com.granzotto.marcio.loadsmartchallenge.utils.adapters.CityAdapter;
 import com.granzotto.marcio.loadsmartchallenge.utils.custom_views.CustomSwipeRefreshLayout;
+import com.granzotto.marcio.loadsmartchallenge.utils.datamanagers.CityDBDataManager;
+import com.granzotto.marcio.loadsmartchallenge.utils.datamanagers.WeatherApiDataManager;
 
 import java.util.HashMap;
 import java.util.List;
@@ -33,7 +35,13 @@ public class MainActivity extends BaseActivity implements MainContracts.View {
 	@BindView(R.id.swipeRefreshLayout)
 	CustomSwipeRefreshLayout swipeRefreshLayout;
 
-	private MainContracts.Presenter presenter = new MainPresenter(this);
+	//Ideally this should be injected using something like Dagger 2, but I did't had much time, sorry
+	private MainContracts.Presenter presenter = new MainPresenter(
+			this,
+			new CityDBDataManager(),
+			new WeatherApiDataManager(WeatherUnit.FAHRENHEIT)
+	);
+
 	private CityAdapter adapter;
 
 	//region Lifecycle
@@ -86,7 +94,6 @@ public class MainActivity extends BaseActivity implements MainContracts.View {
 
 	@OnClick(R.id.addButton)
 	protected void onAddButtonClicked() {
-		//TODO
 		Intent intent = new Intent(this, AddCityActivity.class);
 		startActivity(intent);
 	}
@@ -110,9 +117,7 @@ public class MainActivity extends BaseActivity implements MainContracts.View {
 			}
 		});
 
-		swipeRefreshLayout.setOnRefreshListener(() -> {
-			presenter.onSwipeToRefreshTriggered();
-		});
+		swipeRefreshLayout.setOnRefreshListener(() -> presenter.onSwipeToRefreshTriggered());
 	}
 
 	//endregion

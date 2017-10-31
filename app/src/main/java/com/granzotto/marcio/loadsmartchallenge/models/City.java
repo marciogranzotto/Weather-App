@@ -19,6 +19,13 @@ public class City extends RealmObject {
 		this.stateName = stateName;
 	}
 
+	public City(String id, String name, String stateName, String imageUrl) {
+		this.id = id;
+		this.name = name;
+		this.stateName = stateName;
+		this.imageUrl = imageUrl;
+	}
+
 	public String getId() {
 		return id;
 	}
