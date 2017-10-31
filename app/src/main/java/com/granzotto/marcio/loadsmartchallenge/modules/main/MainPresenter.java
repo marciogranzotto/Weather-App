@@ -1,6 +1,9 @@
 package com.granzotto.marcio.loadsmartchallenge.modules.main;
 
+import android.content.Context;
+
 import com.granzotto.marcio.loadsmartchallenge.models.City;
+import com.granzotto.marcio.loadsmartchallenge.models.WeatherUnit;
 import com.granzotto.marcio.loadsmartchallenge.utils.datamanagers.CityDBDataManager;
 import com.granzotto.marcio.loadsmartchallenge.utils.datamanagers.WeatherApiDataManager;
 
@@ -18,6 +21,10 @@ public class MainPresenter implements MainContracts.Presenter {
 	private List<City> cities = new ArrayList<>();
 	private HashMap<String, Double> weatherMap = new HashMap<>();
 
+	public MainPresenter(MainContracts.View view) {
+		this(view, new CityDBDataManager(), new WeatherApiDataManager(WeatherUnit.FAHRENHEIT));
+	}
+
 	public MainPresenter(MainContracts.View view, CityDBDataManager dbDataManager, WeatherApiDataManager weatherDataManager) {
 		this.view = new WeakReference<>(view);
 		this.dbDataManager = dbDataManager;
@@ -30,7 +37,11 @@ public class MainPresenter implements MainContracts.Presenter {
 	public void onCreate() {
 		MainContracts.View weakView = view.get();
 		if (weakView == null) return;
-		dbDataManager.createCitiesIfNone(weakView.getActivityContext());
+		createCitiesIfNone(dbDataManager, weakView.getActivityContext());
+	}
+
+	private void createCitiesIfNone(CityDBDataManager dbDataManager, Context activityContext) {
+		dbDataManager.createCitiesIfNone(activityContext);
 	}
 
 	@Override

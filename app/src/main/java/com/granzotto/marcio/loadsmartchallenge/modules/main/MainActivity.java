@@ -9,13 +9,10 @@ import android.support.v7.widget.RecyclerView;
 
 import com.granzotto.marcio.loadsmartchallenge.R;
 import com.granzotto.marcio.loadsmartchallenge.models.City;
-import com.granzotto.marcio.loadsmartchallenge.models.WeatherUnit;
 import com.granzotto.marcio.loadsmartchallenge.modules.add_city.AddCityActivity;
 import com.granzotto.marcio.loadsmartchallenge.modules.base.BaseActivity;
 import com.granzotto.marcio.loadsmartchallenge.utils.adapters.CityAdapter;
 import com.granzotto.marcio.loadsmartchallenge.utils.custom_views.CustomSwipeRefreshLayout;
-import com.granzotto.marcio.loadsmartchallenge.utils.datamanagers.CityDBDataManager;
-import com.granzotto.marcio.loadsmartchallenge.utils.datamanagers.WeatherApiDataManager;
 
 import java.util.HashMap;
 import java.util.List;
@@ -35,12 +32,7 @@ public class MainActivity extends BaseActivity implements MainContracts.View {
 	@BindView(R.id.swipeRefreshLayout)
 	CustomSwipeRefreshLayout swipeRefreshLayout;
 
-	//Ideally this should be injected using something like Dagger 2, but I did't had much time, sorry
-	private MainContracts.Presenter presenter = new MainPresenter(
-			this,
-			new CityDBDataManager(),
-			new WeatherApiDataManager(WeatherUnit.FAHRENHEIT)
-	);
+	private MainContracts.Presenter presenter = new MainPresenter(this);
 
 	private CityAdapter adapter;
 
