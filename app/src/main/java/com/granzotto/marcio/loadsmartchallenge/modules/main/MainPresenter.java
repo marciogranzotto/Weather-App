@@ -125,6 +125,11 @@ public class MainPresenter implements MainContracts.Presenter {
 
 	private void onCitiesFetched(List<City> cities) {
 		setCities(cities);
+
+		MainContracts.View weakView = view.get();
+		if (weakView == null) return;
+		weakView.showCities(getCities(), getWeatherMap());
+
 		fetchTemperatures();
 	}
 

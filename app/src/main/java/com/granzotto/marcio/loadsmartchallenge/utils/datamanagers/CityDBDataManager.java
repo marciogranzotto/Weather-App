@@ -9,7 +9,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
 
-import io.reactivex.Flowable;
+import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.realm.Realm;
 
@@ -17,10 +17,11 @@ public class CityDBDataManager {
 
 	private Realm realm = Realm.getDefaultInstance();
 
-	public Flowable<List<City>> fetchCities() {
+	public Observable<List<City>> fetchCities() {
 		return realm.where(City.class)
 				.findAllAsync()
 				.asFlowable()
+				.toObservable()
 				.observeOn(AndroidSchedulers.mainThread())
 				.map(results -> realm.copyFromRealm(results));
 	}
