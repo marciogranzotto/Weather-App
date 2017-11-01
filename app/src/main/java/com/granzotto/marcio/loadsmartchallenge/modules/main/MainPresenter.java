@@ -12,6 +12,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.disposables.Disposable;
+
 public class MainPresenter implements MainContracts.Presenter {
 
 	private WeakReference<MainContracts.View> view;
@@ -20,6 +23,8 @@ public class MainPresenter implements MainContracts.Presenter {
 	private WeatherApiDataManager weatherDataManager;
 	private List<City> cities = new ArrayList<>();
 	private HashMap<String, Double> weatherMap = new HashMap<>();
+
+	private CompositeDisposable compositeDisposable = new CompositeDisposable();
 
 	public MainPresenter(MainContracts.View view) {
 		this(view, new CityDBDataManager(), new WeatherApiDataManager(WeatherUnit.FAHRENHEIT));
@@ -51,6 +56,7 @@ public class MainPresenter implements MainContracts.Presenter {
 
 	@Override
 	public void onDestroy() {
+		if (!compositeDisposable.isDisposed()) compositeDisposable.clear();
 		this.view.clear();
 	}
 
@@ -86,13 +92,16 @@ public class MainPresenter implements MainContracts.Presenter {
 	private void fetchCities() {
 		MainContracts.View weakView = view.get();
 		if (weakView != null) weakView.showLoadingDialog();
-		dbDataManager.fetchCities()
+
+		if (!compositeDisposable.isDisposed()) compositeDisposable.clear();
+		Disposable disposable = dbDataManager.fetchCities()
 				.subscribe(
 						this::onCitiesFetched,
 						error -> {
 							if (weakView != null) weakView.showErrorDialog(error.getMessage());
 						}
 				);
+		compositeDisposable.add(disposable);
 	}
 
 	private void fetchTemperatures() {
@@ -104,13 +113,15 @@ public class MainPresenter implements MainContracts.Presenter {
 			ids.add(city.getId());
 		}
 
-		weatherDataManager.fetchCurrentWeather(ids)
+		if (!compositeDisposable.isDisposed()) compositeDisposable.clear();
+		Disposable disposable = weatherDataManager.fetchCurrentWeather(ids)
 				.subscribe(
 						this::onWeatherUpdated,
 						error -> {
 							if (weakView != null) weakView.showErrorDialog(error.getMessage());
 						}
 				);
+		compositeDisposable.add(disposable);
 	}
 
 	private void onWeatherUpdated(HashMap<String, Double> weatherMap) {

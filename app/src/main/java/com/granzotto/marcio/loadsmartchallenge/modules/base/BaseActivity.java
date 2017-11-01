@@ -29,6 +29,7 @@ public class BaseActivity extends AppCompatActivity implements BaseContracts.Vie
 
 	@Override
 	public void showErrorDialog(String message) {
+		if (dialog != null) dialog.dismiss();
 		dialog = ErrorDialog.show(message, this);
 	}
 }
