@@ -128,4 +128,39 @@ public class MainPresenterTest {
 		verify(view, never()).showCities(presenter.getCities(), presenter.getWeatherMap());
 	}
 
+	@Test
+	public void fetchCitiesShouldShowInView() {
+		City city = new City("1234", "New York", "NY", "www.google.com");
+		List<City> cities = Collections.singletonList(city);
+
+		when(dbDataManager.fetchCities())
+				.thenReturn(Observable.just(cities));
+
+		List<String> ids = Collections.singletonList(city.getId());
+		HashMap<String, Double> response = new HashMap<>();
+		when(weatherDataManager.fetchCurrentWeather(ids))
+				.thenReturn(Observable.just(response));
+
+		presenter.onResume();
+
+		InOrder inOrder = Mockito.inOrder(view);
+		inOrder.verify(view, times(1)).showCities(cities, presenter.getWeatherMap());
+		inOrder.verify(view, times(1)).hideLoadingDialog();
+		inOrder.verify(view, times(1)).showCities(cities, presenter.getWeatherMap());
+		verify(view, never()).showErrorDialog(null);
+	}
+
+	@Test
+	public void fetchCitiesErrorShouldShowError() {
+		Exception exception = new Exception("Error message");
+
+		when(dbDataManager.fetchCities())
+				.thenReturn(Observable.error(exception));
+
+		presenter.onResume();
+		InOrder inOrder = Mockito.inOrder(view);
+		inOrder.verify(view, times(1)).showErrorDialog(exception.getMessage());
+		verify(view, never()).showCities(presenter.getCities(), presenter.getWeatherMap());
+	}
+
 }
