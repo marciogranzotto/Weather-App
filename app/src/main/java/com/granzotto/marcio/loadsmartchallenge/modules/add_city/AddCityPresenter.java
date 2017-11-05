@@ -18,7 +18,13 @@ public class AddCityPresenter implements AddCityContracts.Presenter {
 	private City city;
 
 	AddCityPresenter(AddCityContracts.View view) {
+		this(view, new WeatherApiDataManager(WeatherUnit.FAHRENHEIT), new CityDBDataManager());
+	}
+
+	public AddCityPresenter(AddCityContracts.View view, WeatherApiDataManager weatherApi, CityDBDataManager dbDataManager) {
 		this.view = new WeakReference<>(view);
+		this.weatherApi = weatherApi;
+		this.dbDataManager = dbDataManager;
 	}
 
 	@Override
