@@ -21,19 +21,6 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class FlickrApiDataManager {
 
-	//region Singleton boiler plate
-
-	private static final FlickrApiDataManager ourInstance = new FlickrApiDataManager();
-
-	public static FlickrApiDataManager getInstance() {
-		return ourInstance;
-	}
-
-	private FlickrApiDataManager() {
-	}
-
-	//endregion
-
 	//region Static
 
 	private static HashMap<String, String> QUERY_MAP;

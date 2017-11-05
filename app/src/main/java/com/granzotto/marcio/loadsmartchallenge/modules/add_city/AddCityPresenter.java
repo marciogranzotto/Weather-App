@@ -13,18 +13,20 @@ import java.lang.ref.WeakReference;
 public class AddCityPresenter implements AddCityContracts.Presenter {
 
 	private WeakReference<AddCityContracts.View> view;
-	private WeatherApiDataManager weatherApi = new WeatherApiDataManager(WeatherUnit.FAHRENHEIT);
-	private CityDBDataManager dbDataManager = new CityDBDataManager();
+	private WeatherApiDataManager weatherApi;
+	private CityDBDataManager dbDataManager;
+	private FlickrApiDataManager flickrApiDataManager;
 	private City city;
 
 	AddCityPresenter(AddCityContracts.View view) {
-		this(view, new WeatherApiDataManager(WeatherUnit.FAHRENHEIT), new CityDBDataManager());
+		this(view, new WeatherApiDataManager(WeatherUnit.FAHRENHEIT), new CityDBDataManager(), new FlickrApiDataManager());
 	}
 
-	public AddCityPresenter(AddCityContracts.View view, WeatherApiDataManager weatherApi, CityDBDataManager dbDataManager) {
+	public AddCityPresenter(AddCityContracts.View view, WeatherApiDataManager weatherApi, CityDBDataManager dbDataManager, FlickrApiDataManager flickrApiDataManager) {
 		this.view = new WeakReference<>(view);
 		this.weatherApi = weatherApi;
 		this.dbDataManager = dbDataManager;
+		this.flickrApiDataManager = flickrApiDataManager;
 	}
 
 	@Override
@@ -60,7 +62,7 @@ public class AddCityPresenter implements AddCityContracts.Presenter {
 		AddCityContracts.View weakView = view.get();
 		if (weakView == null) return;
 		city.setId(id);
-		FlickrApiDataManager.getInstance().fetchImageUrl(city.getName() + ", " + city.getStateName())
+		flickrApiDataManager.fetchImageUrl(city.getName() + ", " + city.getStateName())
 				.subscribe(
 						this::onCityImageFetched,
 						error -> weakView.showErrorDialog(error.getMessage())
