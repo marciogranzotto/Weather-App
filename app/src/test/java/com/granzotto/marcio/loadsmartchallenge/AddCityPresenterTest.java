@@ -116,4 +116,52 @@ public class AddCityPresenterTest {
 		inOrder.verify(view, times(1)).closeScreen();
 		verify(view, never()).showErrorDialog(any());
 	}
+
+	@Test
+	public void fetchIdErrorShouldShowErrorDialog() {
+		String errorMessage = "Error!";
+
+		when(weatherDataManager.fetchCityId(any()))
+				.thenReturn(Observable.error(new Exception(errorMessage)));
+
+		when(flickrApiDataManager.fetchImageUrl(any()))
+				.thenReturn(Observable.just(""));
+
+		doAnswer(invocation -> {
+			CityDBDataManager.SaveListener listener = invocation.getArgumentAt(1, CityDBDataManager.SaveListener.class);
+			listener.onSuccess();
+			return invocation;
+		}).when(dbDataManager).saveCity(any(), any());
+
+		presenter.onSaveButtonClicked("New York", "NY");
+
+		InOrder inOrder = Mockito.inOrder(view);
+		inOrder.verify(view, times(1)).showLoadingDialog();
+		inOrder.verify(view, times(1)).showErrorDialog(errorMessage);
+		verify(view, never()).closeScreen();
+	}
+
+	@Test
+	public void fetchImageErrorShouldShowErrorDialog() {
+		String errorMessage = "Error!";
+
+		when(weatherDataManager.fetchCityId(any()))
+				.thenReturn(Observable.just("id"));
+
+		when(flickrApiDataManager.fetchImageUrl(any()))
+				.thenReturn(Observable.error(new Exception(errorMessage)));
+
+		doAnswer(invocation -> {
+			CityDBDataManager.SaveListener listener = invocation.getArgumentAt(1, CityDBDataManager.SaveListener.class);
+			listener.onSuccess();
+			return invocation;
+		}).when(dbDataManager).saveCity(any(), any());
+
+		presenter.onSaveButtonClicked("New York", "NY");
+
+		InOrder inOrder = Mockito.inOrder(view);
+		inOrder.verify(view, times(1)).showLoadingDialog();
+		inOrder.verify(view, times(1)).showErrorDialog(errorMessage);
+		verify(view, never()).closeScreen();
+	}
 }
