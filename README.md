@@ -10,7 +10,6 @@ This was a challenge for Loadsmart.
 I haven't had a lot of time to invest in this project because I'm in the process of renting a new apartment and didn't had much free time.
 
 With that in mind:
-- Didn't implement a lot of unit tests, just a few on the MainPresenter.
 - Didn't style much the app, used android default colors
 - Didn't create an app icon
 - Didn't use Dagger 2 to inject dependencies, which would have made my life easier when unit testing

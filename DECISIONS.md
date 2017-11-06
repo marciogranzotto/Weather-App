@@ -30,7 +30,7 @@ These are the decisions made for this project.
 
 ## Unit tests
 
-As said on the `README` file, I didn't had much time to implement the tests. With that limited time, I decided to test the inputs and outputs of the `MainPresenter`.
+I decided to test the inputs and outputs of the `Presenters` of each module (`Main` and `AddCity`).
 
 ## Architecture
 
