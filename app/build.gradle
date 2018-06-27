@@ -9,7 +9,7 @@ apply plugin: 'kotlin-android-extensions'
 android {
     compileSdkVersion 26
     defaultConfig {
-        applicationId "com.granzotto.marcio.loadsmartchallenge"
+        applicationId "com.granzotto.marcio.weatherapp"
         minSdkVersion 19
         targetSdkVersion 26
         versionCode 1

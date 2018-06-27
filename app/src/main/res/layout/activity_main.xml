@@ -5,9 +5,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.granzotto.marcio.loadsmartchallenge.modules.main.MainActivity">
+    tools:context="com.granzotto.marcio.weatherapp.modules.main.MainActivity">
 
-    <com.granzotto.marcio.loadsmartchallenge.utils.custom_views.CustomSwipeRefreshLayout
+    <com.granzotto.marcio.weatherapp.utils.custom_views.CustomSwipeRefreshLayout
         android:id="@+id/swipeRefreshLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -18,7 +18,7 @@
             android:layout_height="match_parent"
             tools:listitem="@layout/city_cell"/>
 
-    </com.granzotto.marcio.loadsmartchallenge.utils.custom_views.CustomSwipeRefreshLayout>
+    </com.granzotto.marcio.weatherapp.utils.custom_views.CustomSwipeRefreshLayout>
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/addButton"

@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">LoadSmart Challenge</string>
+    <string name="app_name">Weather App</string>
     <string name="temperature_value">%1$.1f°</string>
     <string name="city_name">City name</string>
     <string name="state">State</string>

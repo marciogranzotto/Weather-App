@@ -1,4 +1,4 @@
-# Loadsmart Challenge
+# Weather App
 
 This application starts with a list of the 10 largest cities on US by population and let's the user add new ones, then it shows the cities with pictures from Flickr and displays the current temperature from Open Weather.
 This was a challenge for Loadsmart.
