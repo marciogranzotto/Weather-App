@@ -7,7 +7,7 @@ This was a challenge for Loadsmart.
 - Android Studio 3.0 or newer
 
 ## Considerations and Things to Improve
-I haven't had a lot of time to invest in this project because I'm in the process of renting a new apartment and didn't had much free time.
+I haven't had a lot of time to invest in this project because didn't had much free time.
 
 With that in mind:
 - Didn't style much the app, used android default colors
